@@ -9,3 +9,172 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model SisuData {
+  ano                   Int?
+  edicao                Int?
+  codigo_etapa          Int?
+  etapa                 String?    @db.VarChar(50)
+  codigo_ies            Int?
+  nome_ies              String?    @db.VarChar(255)
+  sigla_ies             String?    @db.VarChar(30)
+  uf_ies                String?    @db.VarChar(2)
+  codigo_campus         Int?
+  nome_campus           String?    @db.VarChar(255)
+  uf_campus             String?    @db.VarChar(2)
+  municipio_campus      String?    @db.VarChar(255)
+  codigo_curso          Int?
+  nome_curso            String?    @db.VarChar(255)
+  grau                  String?    @db.VarChar(255)
+  turno                 String?    @db.VarChar(15)
+  ds_periodicidade      String?    @db.VarChar(50)                      
+  tp_cota               String?    @db.VarChar(300)
+  tipo_mod_concorrencia String?    @db.VarChar(300)
+  mod_concorrencia      String?    
+  qt_vagas_concorrencia Int? 
+  percentual_bonus      Float?
+  peso_l                Float?
+  peso_ch               Float?
+  peso_cn               Float?
+  peso_m                Float?
+  peso_r                Float?
+  nota_minima_l         Float?
+  nota_minima_ch        Float?
+  nota_minima_cn        Float?
+  nota_minima_m         Float?
+  nota_minima_r         Float?
+  media_minima          Float?
+  cpf                   String?    @db.VarChar(15)
+  inscricao_enem        String?    @db.VarChar(15)
+  inscrito              String?    @db.VarChar(255)
+  sexo                  String?    @db.VarChar(10)
+  data_nascimento       String?    @db.VarChar(12)
+  uf_candidato          String?    @db.VarChar(2)
+  municipio_candidato   String?    @db.VarChar(255)
+  opcao                 String?    @db.VarChar(20)
+  nota_l                Float?
+  nota_ch               Float?
+  nota_cn               Float?
+  nota_m                Float?
+  nota_r                Float?
+  nota_l_com_peso       Float?
+  nota_ch_com_peso      Float?
+  nota_cn_com_peso      Float?
+  nota_m_com_peso       Float?
+  nota_r_com_peso       Float?
+  nota_candidato        Float?
+  nota_corte            Float?
+  classificacao         String?   @db.VarChar(20)
+  aprovado              String?   @db.VarChar(520)
+  matricula             String?   @db.VarChar(50)
+  id                    Int       @unique @id @default(autoincrement())
+  @@map("sisu_data")
+}
+
+model SisuNota {
+  id                    Int     @unique @id @default(autoincrement())
+  candidato_id           Int    @map("dimensao_candidato")
+  tempo_id               Int    @map("dimensao_tempo")
+  ies_id                 Int    @map("dimensao_ies")
+  campus_id              Int    @map("dimensao_campus")
+  curso_id               Int    @map("dimensao_curso")
+  concorrencia_id        Int    @map("dimensao_concorrencia")
+  // @@unique([candidatoId, tempoId,iesId,campusId,cursoId, concorrenciaId], map: "dimensoes_unique_key")
+  peso_l                Float?
+  peso_ch               Float?
+  peso_cn               Float?
+  peso_m                Float?
+  peso_r                Float?
+  nota_minima_l         Float?
+  nota_minima_ch        Float?
+  nota_minima_cn        Float?
+  nota_minima_m         Float?
+  nota_minima_r         Float?
+  media_minima          Float?
+  nota_l                Float?
+  nota_ch               Float?
+  nota_cn               Float?
+  nota_m                Float?
+  nota_r                Float?
+  nota_l_com_peso       Float?
+  nota_ch_com_peso      Float?
+  nota_cn_com_peso      Float?
+  nota_m_com_peso       Float?
+  nota_r_com_peso       Float?
+  nota_candidato        Float?
+  nota_corte            Float?
+  classificacao         String?             @db.VarChar(20)
+  candidato             SisuCandidato?      @relation(fields: [candidato_id], references: [id])
+  tempo                 SisuTempo?          @relation(fields: [tempo_id], references: [id])
+  ies                   SiSuIES?            @relation(fields: [ies_id], references: [id])
+  campus                SisuCampus?         @relation(fields: [campus_id], references: [id])
+  curso                 SisuCurso?          @relation(fields: [curso_id], references: [id])
+  concorrencia          SisuConcorrencia?   @relation(fields: [concorrencia_id], references: [id])
+  @@map("sisu_nota")
+
+}
+
+
+model SisuCandidato {
+  id                    Int        @unique @id @default(autoincrement())
+  inscrito              String?    @db.VarChar(255)
+  sexo                  String?    @db.VarChar(10)
+  data_nascimento       String?    @db.VarChar(12)
+  uf_candidato          String?    @db.VarChar(2)
+  municipio_candidato   String?    @db.VarChar(255)
+  aprovado              String?    @db.VarChar(520)
+  matricula             String?    @db.VarChar(50)
+  opcao                 String?    @db.VarChar(20)
+  sisuNotas             SisuNota[]
+  @@map("sisu_candidato")
+
+}
+
+model SisuTempo {
+  id                    Int        @unique @id @default(autoincrement())
+  ano                   Int?
+  edicao                Int?
+  codigo_etapa          Int?
+  etapa                 String?    @db.VarChar(50)
+  sisu_notas            SisuNota[]
+  @@map("sisu_tempo")
+}
+model SiSuIES {
+  id                    Int        @unique @id @default(autoincrement())
+  codigo_ies            Int?
+  nome_ies              String?    @db.VarChar(255)
+  sigla_ies             String?    @db.VarChar(30)
+  uf_ies                String?    @db.VarChar(2)
+  percentual_bonus      Float?
+  sisu_notas            SisuNota[]
+  @@map("sisu_ies")
+}
+model SisuCampus {
+  id                    Int        @unique @id @default(autoincrement())
+  codigo_campus         Int?
+  nome_campus           String?    @db.VarChar(255)
+  uf_campus             String?    @db.VarChar(2)
+  municipio_campus      String?    @db.VarChar(255)
+  sisu_notas            SisuNota[]
+  @@map("sisu_campus")
+}
+model SisuCurso {
+  id                    Int        @unique @id @default(autoincrement())
+  codigo_curso          Int?
+  nome_curso            String?    @db.VarChar(255)
+  grau                  String?    @db.VarChar(255)
+  turno                 String?    @db.VarChar(15)
+  ds_periodicidade      String?    @db.VarChar(50)                      
+  sisu_notas            SisuNota[]
+  @@map("sisu_curso")
+}
+
+model SisuConcorrencia {
+  id                    Int        @unique @id @default(autoincrement())
+  tipo_mod_concorrencia String?    @db.VarChar(300)
+  mod_concorrencia      String?    @db.VarChar(300)
+  qt_vagas_concorrencia Int? 
+  tp_cota               String?    @db.VarChar(300)
+  sisu_notas            SisuNota[]
+  @@map("sisu_concorrencia")
+}
