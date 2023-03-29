@@ -28,6 +28,7 @@ star:
 
 etl:
 	-make download
+	-make prepare_database
 	-make correct
 	-make staging_area
 	-make star
