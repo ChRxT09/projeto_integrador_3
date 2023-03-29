@@ -82,12 +82,12 @@ sleep(2)
 cur.execute("""insert into sisu_nota 
                 select
                   sd.id,
-                  dc.id as dimensao_candidato,
-                  dt.id as dimensao_tempo,
-                  di.id as dimensao_ies,
-                  dc1.id as dimensao_campus,
-                  dc2.id as dimensao_curso,
-                  dc3.id as dimensao_concorrencia,
+                  sd.id as dimensao_candidato,
+                  sd.id as dimensao_tempo,
+                  sd.id as dimensao_ies,
+                  sd.id as dimensao_campus,
+                  sd.id as dimensao_curso,
+                  sd.id as dimensao_concorrencia,
                   sd.peso_l,
                   sd.peso_ch,
                   sd.peso_cn,
@@ -112,13 +112,7 @@ cur.execute("""insert into sisu_nota
                   sd.nota_candidato,
                   sd.nota_corte,
                   sd.classificacao
-                from sisu_data sd
-                join sisu_candidato dc on dc.id = sd.id 
-                join sisu_tempo dt on dt.id = sd.id 
-                join sisu_campus dc1 on dc1.id = sd.id 
-                join sisu_ies di on di.id = sd.id
-                join sisu_curso dc2 on dc2.id = sd.id 
-                join sisu_concorrencia dc3 on dc3.id = sd.id;
+                from sisu_data sd;
 """)
 conn.commit()
 
