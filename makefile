@@ -27,8 +27,8 @@ star:
 	-python3 scripts/modelingData.py
 
 etl:
-	-make download
 	-make prepare_database
+	-make download
 	-make correct
 	-make staging_area
 	-make star
