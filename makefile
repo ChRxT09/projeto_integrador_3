@@ -5,6 +5,9 @@ correct:
 download:
 	-python3 scripts/downloadCsv.py
 
+python_requirements:
+	pip install requirements.txt -r
+
 staging_area:
 	-cat ./datasets/treated/sisu_2022.csv | PGPASSWORD=dev psql -h localhost -p 5030 -U dev -d notas -c \
 	"\copy sisu_data(ano,edicao,codigo_etapa,etapa,codigo_ies,nome_ies,sigla_ies,uf_ies,codigo_campus, \
@@ -27,6 +30,7 @@ star:
 	-python3 scripts/modelingData.py
 
 etl:
+	-make python_requirements
 	-make prepare_database
 	-make download
 	-make correct
