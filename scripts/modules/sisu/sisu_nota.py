@@ -1,5 +1,6 @@
 from time import sleep
 def sisu_nota(conn, cur, year):
+    print(f'inserindo fato nota do ano {year}')
     cur.execute("""insert into sisu_nota 
                   select
                     sd.id,
@@ -34,7 +35,9 @@ def sisu_nota(conn, cur, year):
                     sd.nota_corte,
                     sd.classificacao
                   from sisu_data sd;
+                  where sd.ano = %s
     """, (year,))
     conn.commit()
     cur.close()
+    print(f'fato nota de {year} inserido com êxito')
     sleep(2)

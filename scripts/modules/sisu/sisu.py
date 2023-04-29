@@ -5,8 +5,11 @@ from sisu_curso import sisu_curso
 from sisu_ies import sisu_ies
 from sisu_tempo import sisu_tempo
 from sisu_nota import sisu_nota
-
+from time import sleep
 def sisu(conn, cur, year):
+    print(f'inserindo dados do ano de {year}')
+    print('iniciando...')
+    sleep(2)
     sisu_campus(conn, cur, year)
     sisu_candidato(conn, cur, year)
     sisu_concorrencia(conn, cur, year)

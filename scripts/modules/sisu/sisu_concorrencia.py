@@ -1,5 +1,6 @@
 from time import sleep
 def sisu_concorrencia(conn, cur, year):
+    print(f'inserindo dimensao concorrência do ano {year}')
     cur.execute("""insert into sisu_concorrencia 
                   SELECT 
                     id,
@@ -10,4 +11,5 @@ def sisu_concorrencia(conn, cur, year):
                   FROM sisu_data sd;
     """, (year,))
     conn.commit()
+    print(f'dimensao concorrência de {year} inserido com êxito')
     sleep(2)

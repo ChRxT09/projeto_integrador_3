@@ -1,6 +1,7 @@
 from time import sleep
 
 def sisu_candidato(conn, cur, year):
+    print(f'inserindo dimensao candidato do ano {year}')
     cur.execute(""" 
                 insert into sisu_candidato
                   SELECT 
@@ -17,4 +18,5 @@ def sisu_candidato(conn, cur, year):
                   WHERE ano = %s
     """, (year,))
     conn.commit()
+    print(f'dimensao candidato de  {year} inserido com êxito')
     sleep(2)
