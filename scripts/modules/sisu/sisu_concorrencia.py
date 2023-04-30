@@ -8,7 +8,8 @@ def sisu_concorrencia(conn, cur, year):
                     mod_concorrencia,
                     qt_vagas_concorrencia,
                     tp_cota
-                  FROM sisu_data sd;
+                  FROM sisu_data sd
+                  WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao concorrência de {year} inserido com êxito')

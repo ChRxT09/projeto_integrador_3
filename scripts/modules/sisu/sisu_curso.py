@@ -11,8 +11,8 @@ def sisu_curso(conn, cur, year):
                     grau,
                     turno,
                     ds_periodicidade
-                  FROM sisu_data;
-                  WHERE ano = %s
+                  FROM sisu_data
+                  WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao curso de {year} inserido com êxito')

@@ -14,8 +14,8 @@ def sisu_candidato(conn, cur, year):
                     TO_DATE(data_nascimento, 'DD/MM/YYYY') AS data_nascimento,
                     aprovado = 'S' as aprovado,
                     opcao::integer
-                  FROM sisu_data;
-                  WHERE ano = %s
+                  FROM sisu_data
+                  WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao candidato de  {year} inserido com êxito')

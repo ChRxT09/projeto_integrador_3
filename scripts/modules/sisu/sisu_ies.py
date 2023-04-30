@@ -10,8 +10,8 @@ def sisu_ies(conn, cur, year):
                         sigla_ies,
                         uf_ies,
                         percentual_bonus
-                      FROM sisu_data;
-                      WHERE ano = %s
+                      FROM sisu_data
+                      WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao inst. de ensino de {year} inserido com êxito')

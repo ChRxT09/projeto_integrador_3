@@ -9,8 +9,8 @@ def sisu_campus(conn, cur, year):
                     nome_campus,
                     uf_campus,
                     municipio_campus
-                  FROM sisu_data;
-                  WHERE ano = %s
+                  FROM sisu_data
+                  WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao campus de {year} inserido com êxito')

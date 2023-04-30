@@ -1,10 +1,10 @@
-from sisu_campus import sisu_campus
-from sisu_candidato import sisu_candidato
-from sisu_concorrencia import sisu_concorrencia
-from sisu_curso import sisu_curso
-from sisu_ies import sisu_ies
-from sisu_tempo import sisu_tempo
-from sisu_nota import sisu_nota
+from modules.sisu.sisu_campus import sisu_campus
+from modules.sisu.sisu_candidato import sisu_candidato
+from modules.sisu.sisu_concorrencia import sisu_concorrencia
+from modules.sisu.sisu_curso import sisu_curso
+from modules.sisu.sisu_ies import sisu_ies
+from modules.sisu.sisu_tempo import sisu_tempo
+from modules.sisu.sisu_nota import sisu_nota
 from time import sleep
 def sisu(conn, cur, year):
     print(f'inserindo dados do ano de {year}')

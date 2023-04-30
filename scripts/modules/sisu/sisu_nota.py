@@ -34,8 +34,8 @@ def sisu_nota(conn, cur, year):
                     sd.nota_candidato,
                     sd.nota_corte,
                     sd.classificacao
-                  from sisu_data sd;
-                  where sd.ano = %s
+                  from sisu_data sd
+                  where sd.ano = %s;
     """, (year,))
     conn.commit()
     cur.close()

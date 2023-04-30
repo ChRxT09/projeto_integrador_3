@@ -10,8 +10,8 @@ def sisu_tempo(conn, cur, year):
                     edicao,
                     codigo_etapa,
                     etapa
-                  FROM sisu_data;
-                  WHERE ano = %s
+                  FROM sisu_data
+                  WHERE ano = %s;
     """, (year,))
     conn.commit()
     print(f'dimensao tempo de {year} inserido com êxito')
